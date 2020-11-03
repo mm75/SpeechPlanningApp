@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+  <h1 class="h2">Congregações</h1>
+</div>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let congregacao of congregacoes">
+      <th scope="row">{{congregacao.id}}</th>
+      <td>{{congregacao.nome}}</td>
+    </tr>
+  </tbody>
+</table>
