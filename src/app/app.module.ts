@@ -12,6 +12,9 @@ import { IdiomasComponent } from './idiomas/idiomas.component';
 import { OradoresComponent } from './oradores/oradores.component';
 import { ProgramacoesComponent } from './programacoes/programacoes.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     OradoresComponent,
     ProgramacoesComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FontAwesomeModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FontAwesomeModule,
+    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
