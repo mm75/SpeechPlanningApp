@@ -25,7 +25,7 @@
     </tr>
   </tbody>
 </table>
-<pagination previousText="Anterior" [totalItems]="congregacoes?.length" [itemsPerPage]="10" nextText="Próxima"
+<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="congregacoes?.length" [itemsPerPage]="10" nextText="Próxima"
   (pageChanged)="pageChanged($event)"></pagination>
 
 <ng-template #template>
@@ -56,3 +56,5 @@
     </form>
   </div>
 </ng-template>
+
+<app-confirmation-dialog></app-confirmation-dialog>

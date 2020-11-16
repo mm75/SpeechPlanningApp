@@ -4,6 +4,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Esboco } from '../shared/models/esboco';
+import { ConfirmationDialogService } from '../shared/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-esbocos',
@@ -20,7 +21,8 @@ export class EsbocosComponent implements OnInit {
   constructor(
     private esbocoservice: EsbocoService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private confirmationDialogService: ConfirmationDialogService
   ) {
     this.createForm();
   }
@@ -84,6 +86,16 @@ export class EsbocosComponent implements OnInit {
   }
 
   remove(esboco: Esboco): void {
-    this.esbocoservice.remove(esboco).subscribe((data) => this.loadEsbocos());
+    this.confirmationDialogService.confirmThis(
+      'Deseja realmente remover o registro?',
+      () => {
+        this.esbocoservice
+          .remove(esboco)
+          .subscribe((data) => this.loadEsbocos());
+      },
+      () => {
+        return false;
+      }
+    );
   }
 }

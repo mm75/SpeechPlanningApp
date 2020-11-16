@@ -8,7 +8,7 @@
   <thead class="thead-light">
     <tr>
       <th scope="col"></th>
-      <th scope="col">#</th>
+      <th scope="col">Número</th>
       <th scope="col">Tema</th>
       <th scope="col">Ação</th>
     </tr>
@@ -28,7 +28,7 @@
     </tr>
   </tbody>
 </table>
-<pagination previousText="Anterior" [totalItems]="canticos?.length" [itemsPerPage]="10" nextText="Próxima" (pageChanged)="pageChanged($event)"></pagination>
+<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="canticos?.length" [itemsPerPage]="10" nextText="Próxima" (pageChanged)="pageChanged($event)"></pagination>
 
 <ng-template #template>
   <div class="modal-header">

@@ -4,6 +4,7 @@ import { Congregacao } from './../shared/models/congregacao';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConfirmationDialogService } from '../shared/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-congregacoes',
@@ -20,7 +21,8 @@ export class CongregacoesComponent implements OnInit {
   constructor(
     private congregacoeservice: CongregacaoService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private confirmationDialogService: ConfirmationDialogService
   ) {
     this.createForm();
   }
@@ -87,8 +89,16 @@ export class CongregacoesComponent implements OnInit {
   }
 
   remove(congregacao: Congregacao): void {
-    this.congregacoeservice
-      .remove(congregacao)
-      .subscribe((data) => this.loadCongregacoes());
+    this.confirmationDialogService.confirmThis(
+      'Deseja realmente remover o registro?',
+      () => {
+        this.congregacoeservice
+          .remove(congregacao)
+          .subscribe((data) => this.loadCongregacoes());
+      },
+      () => {
+        return false;
+      }
+    );
   }
 }

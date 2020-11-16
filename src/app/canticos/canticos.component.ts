@@ -1,10 +1,10 @@
-import {CanticoService} from '../core/services/cantico.service';
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {Cantico} from '../shared/models/cantico';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PageChangedEvent} from 'ngx-bootstrap/pagination';
-import {ConfirmationDialogService} from '../shared/services/confirmation-dialog.service';
+import { CanticoService } from '../core/services/cantico.service';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Cantico } from '../shared/models/cantico';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { ConfirmationDialogService } from '../shared/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-canticos',
@@ -85,12 +85,16 @@ export class CanticosComponent implements OnInit {
   }
 
   remove(congregacao: Cantico): void {
-    this.confirmationDialogService.confirmThis('Deseja realmente remover o registro?', () => {
-      this.canticoService
-      .remove(congregacao)
-      .subscribe((data) => this.loadCanticos());
-    }, () => {
-      return false;
-    });
+    this.confirmationDialogService.confirmThis(
+      'Deseja realmente remover o registro?',
+      () => {
+        this.canticoService
+          .remove(congregacao)
+          .subscribe((data) => this.loadCanticos());
+      },
+      () => {
+        return false;
+      }
+    );
   }
 }

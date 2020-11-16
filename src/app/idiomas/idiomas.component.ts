@@ -1,10 +1,11 @@
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { IdiomaService } from './../core/services/idioma.service';
-import { Idioma } from './../shared/models/Idioma';
+import { IdiomaService } from '../core/services/idioma.service';
+import { Idioma } from '../shared/models/Idioma';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
+import { ConfirmationDialogService } from '../shared/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-idiomas',
@@ -21,7 +22,8 @@ export class IdiomasComponent implements OnInit {
   constructor(
     private idiomaService: IdiomaService,
     private modalService: BsModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private confirmationDialogService: ConfirmationDialogService
   ) {
     this.createForm();
   }
@@ -83,8 +85,16 @@ export class IdiomasComponent implements OnInit {
   }
 
   remove(congregacao: Idioma): void {
-    this.idiomaService
-      .remove(congregacao)
-      .subscribe((data) => this.loadIdiomas());
+    this.confirmationDialogService.confirmThis(
+      'Deseja realmente remover o registro?',
+      () => {
+        this.idiomaService
+          .remove(congregacao)
+          .subscribe((data) => this.loadIdiomas());
+      },
+      () => {
+        return false;
+      }
+    );
   }
 }
