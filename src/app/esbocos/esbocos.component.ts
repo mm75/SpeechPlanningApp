@@ -36,6 +36,7 @@ export class EsbocosComponent implements OnInit {
       id: [null],
       numero: [null, Validators.required],
       titulo: [null, Validators.required],
+      idiomaId: [null, Validators.required]
     });
   }
 

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../../environments/environment';
 import { Idioma } from './../../shared/models/Idioma';
@@ -8,8 +9,12 @@ import { BaseService } from './base.service';
   providedIn: 'root'
 })
 export class IdiomaService extends BaseService<Idioma> {
-  constructor(http: HttpClient) {
+  constructor(private httpClient: HttpClient, http: HttpClient) {
     super(http);
     this.baseUrl = `${environment.baseUrl}/idioma`;
+  }
+
+  getByNome(nome: string): Observable<Idioma[]> {
+    return this.httpClient.get<Idioma[]>(`${this.baseUrl}/search/${nome}`);
   }
 }

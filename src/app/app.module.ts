@@ -18,6 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import {ConfirmationDialogService} from './shared/services/confirmation-dialog.service';
+import { AutocompleteIdiomaComponent } from './shared/components/autocomplete-idioma/autocomplete-idioma.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {ConfirmationDialogService} from './shared/services/confirmation-dialog.s
     OradoresComponent,
     ProgramacoesComponent,
     ConfirmationDialogComponent,
+    AutocompleteIdiomaComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import {ConfirmationDialogService} from './shared/services/confirmation-dialog.s
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   providers: [
     ConfirmationDialogService

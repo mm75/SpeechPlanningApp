@@ -1,0 +1,7 @@
+<div class="form-group" [formGroup]="parentForm">
+  <input type="hidden" formControlName="idiomaId" value="{{selected ? selected.id : ''}}">
+  <label for="formGroupTitulo">Idioma</label>
+  <input [(ngModel)]="search" typeaheadOptionField="nome" [typeahead]="suggestions$" [typeaheadAsync]="true"
+    (typeaheadOnSelect)="onSelect($event)" class="form-control" formControlName="idiomaNome"
+    placeholder="Informe o idioma">
+</div>

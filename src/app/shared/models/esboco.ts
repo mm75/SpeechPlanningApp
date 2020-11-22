@@ -5,4 +5,5 @@ export class Esboco implements IEntity {
   public numero: number;
   public titulo: string;
   public idiomaId: number;
+  public idiomaNome: string;
 }
