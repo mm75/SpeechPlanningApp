@@ -1,3 +1,70 @@
-<p>
-  programacoes works!
-</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+  <h1 class="h2">Programação</h1>
+  <a (click)="openModal(template)" class="btn btn-icon btn-pill btn-success" data-toggle="tooltip" title="Novo"><i
+      class="fa fa-fw fa-plus"></i>Novo</a>
+</div>
+
+<table class="table table-striped table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Congregação</th>
+      <th scope="col">Orador</th>
+      <th scope="col">Esboço</th>
+      <th scope="col">Cântico</th>
+      <th scope="col">Data</th>
+      <th scope="col">Hora</th>
+      <th scope="col">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let programacao of returnedEntity">
+      <th scope="row">
+      </th>
+      <th>{{programacao.congregacaoNome}}</th>
+      <td>{{programacao.oradorNome}}</td>
+      <td>{{programacao.esbocoTitulo}}</td>
+      <td>{{programacao.canticoTitulo}}</td>
+      <td>{{programacao.data | date: 'dd/MM/yyyy'}}</td>
+      <td>{{programacao.hora}}</td>
+      <td class=" actions">
+        <a (click)="openModal(template, programacao)" class="btn btn-icon btn-pill btn-primary" data-toggle="tooltip"
+          title="Editar"><i class="fa fa-fw fa-edit"></i></a>
+        <a (click)="remove(programacao)" class="btn btn-icon btn-pill btn-danger" data-toggle="tooltip" title="Remove"><i
+            class="fa fa-fw fa-trash"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="entities?.length" [itemsPerPage]="10" nextText="Próxima" (pageChanged)="pageChanged($event)"></pagination>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Programação</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form" (submit)="save()">
+      <input type="text" formControlName="id" hidden>
+      <app-autocomplete [service]="serviceCongregacaoToAutocomplete" [title]="congregacaoTitle" [fieldId]="congregacaoId" [fieldName]="congregacaoNome" [parentForm]="form" [search]="selectedEntity?.congregacaoNome"></app-autocomplete>
+      <app-autocomplete [service]="serviceOradorToAutocomplete" [title]="oradorTitle" [fieldId]="oradorId" [fieldName]="oradorNome" [parentForm]="form" [search]="selectedEntity?.oradorNome"></app-autocomplete>
+      <app-autocomplete [service]="serviceEsbocoToAutocomplete" [title]="esbocoTitle" [fieldId]="esbocoId" [fieldName]="esbocoTitulo" [fieldValue]="esbocoValue" [parentForm]="form" [search]="selectedEntity?.esbocoTitulo"></app-autocomplete>
+      <app-autocomplete [service]="serviceCanticoToAutocomplete" [title]="canticoTitle" [fieldId]="canticoId" [fieldName]="canticoTitulo" [fieldValue]="canticoValue" [parentForm]="form" [search]="selectedEntity?.canticoTitulo"></app-autocomplete>
+      <div class="form-group">
+        <label for="formGroupNome">Data</label>
+        <input type="date" class="form-control" formControlName="data" placeholder="Informe a data">
+      </div>
+      <div class="form-group">
+        <label for="formGroupTelefone">Hora</label>
+        <input type="text" class="form-control" formControlName="hora" placeholder="Informe a hora">
+      </div>
+      <div class="modal-footer mt-3">
+        <div class="form-group">
+          <button class="btn btn-success mr-2" [disabled]="!form.valid">Salvar</button>
+          <button class="btn btn-danger" (click)="closeModal()">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<app-confirmation-dialog></app-confirmation-dialog>

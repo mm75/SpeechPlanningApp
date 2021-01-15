@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let esboco of returnedEsbocos">
+    <tr *ngFor="let esboco of returnedEntity">
       <th scope="row"></th>
       <th>{{esboco.numero}}</th>
       <th>{{esboco.titulo}}</th>
@@ -27,7 +27,7 @@
     </tr>
   </tbody>
 </table>
-<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="esbocos?.length"
+<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="entities?.length"
   [itemsPerPage]="10" nextText="Próxima" (pageChanged)="pageChanged($event)"></pagination>
 
 <ng-template #template>
@@ -35,7 +35,7 @@
     <h4 class="modal-title pull-left">Esboço</h4>
   </div>
   <div class="modal-body">
-    <form [formGroup]="formEsboco" (submit)="save()">
+    <form [formGroup]="form" (submit)="save()">
       <input type="text" formControlName="id" hidden>
       <div class="form-group">
         <label for="formGroupNumero">Número</label>
@@ -45,10 +45,10 @@
         <label for="formGroupTitulo">Título</label>
         <input type="text" class="form-control" formControlName="titulo" placeholder="Informe o título">
       </div>
-      <app-autocomplete-idioma [parentForm]="formEsboco" [search]="selectedEsboco?.idiomaNome"></app-autocomplete-idioma>
+      <app-autocomplete [service]="serviceToAutocomplete" [title]="idiomaTitle" [fieldId]="idiomaId" [fieldName]="idiomaNome" [parentForm]="form" [search]="selectedEntity?.idiomaNome"></app-autocomplete>
       <div class="modal-footer mt-3">
         <div class="form-group">
-          <button class="btn btn-success mr-2" [disabled]="!formEsboco.valid">Salvar</button>
+          <button class="btn btn-success mr-2" [disabled]="!form.valid">Salvar</button>
           <button class="btn btn-danger" (click)="closeModal()">Cancelar</button>
         </div>
       </div>

@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let congregacao of returnedCongregacoes">
+    <tr *ngFor="let congregacao of returnedEntity">
       <th scope="row"></th>
       <th>{{congregacao.nome}}</th>
       <td class=" actions">
@@ -25,7 +25,7 @@
     </tr>
   </tbody>
 </table>
-<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="congregacoes?.length" [itemsPerPage]="10" nextText="Próxima"
+<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="entities?.length" [itemsPerPage]="10" nextText="Próxima"
   (pageChanged)="pageChanged($event)"></pagination>
 
 <ng-template #template>
@@ -33,7 +33,7 @@
     <h4 class="modal-title pull-left">Congregação</h4>
   </div>
   <div class="modal-body">
-    <form [formGroup]="formCongregacao" (submit)="save()">
+    <form [formGroup]="form" (submit)="save()">
       <input type="text" formControlName="id" hidden>
       <div class="form-group">
         <label for="formGroupNumero">Nome</label>
@@ -49,7 +49,7 @@
       </div>
       <div class="modal-footer mt-3">
         <div class="form-group">
-          <button class="btn btn-success mr-2" [disabled]="!formCongregacao.valid">Salvar</button>
+          <button class="btn btn-success mr-2" [disabled]="!form.valid">Salvar</button>
           <button class="btn btn-danger" (click)="closeModal()">Cancelar</button>
         </div>
       </div>

@@ -14,7 +14,7 @@ export class IdiomaService extends BaseService<Idioma> {
     this.baseUrl = `${environment.baseUrl}/idioma`;
   }
 
-  getByNome(nome: string): Observable<Idioma[]> {
-    return this.httpClient.get<Idioma[]>(`${this.baseUrl}/search/${nome}`);
+  getBy(value: string): Observable<Idioma[]> {
+    return this.httpClient.get<Idioma[]>(`${this.baseUrl}/search/${value}`);
   }
 }

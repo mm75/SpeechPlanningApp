@@ -4,6 +4,8 @@ import { IBaseService } from './ibase.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/autocomplete.component';
+import {Idioma} from '../../shared/models/Idioma';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,10 @@ export abstract class BaseService<T> implements IBaseService<T> {
   };
 
   constructor(private http: HttpClient) {}
+
+  getBy(value: string): Observable<T[]> {
+      return this.http.get<T[]>(`${this.baseUrl}/search/${value}`);
+  }
 
   getAll(): Observable<T[]> {
     return this.http.get<T[]>(this.baseUrl);
@@ -40,7 +46,7 @@ export abstract class BaseService<T> implements IBaseService<T> {
   remove(entity: IEntity): Observable<T> {
     const options = {
       headers: this.httpOptions.headers,
-      body: entity
+      body: entity,
     };
 
     return this.http.delete<T>(this.baseUrl, options);

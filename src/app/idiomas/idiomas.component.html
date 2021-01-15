@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let idioma of returnedIdioma">
+    <tr *ngFor="let idioma of returnedEntity">
       <th scope="row"></th>
       <th>{{idioma.nome}}</th>
       <td class=" actions">
@@ -25,14 +25,14 @@
     </tr>
   </tbody>
 </table>
-<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="idiomas?.length" [itemsPerPage]="10" nextText="Próxima" (pageChanged)="pageChanged($event)"></pagination>
+<pagination class="justify-content-end" [maxSize]="5" previousText="Anterior" [totalItems]="entities?.length" [itemsPerPage]="10" nextText="Próxima" (pageChanged)="pageChanged($event)"></pagination>
 
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Idioma</h4>
   </div>
   <div class="modal-body">
-    <form [formGroup]="formIdioma" (submit)="save()">
+    <form [formGroup]="form" (submit)="save()">
       <input type="text" formControlName="id" hidden>
       <div class="form-group">
         <label for="formGroupTema">Nome</label>
@@ -40,7 +40,7 @@
       </div>
       <div class="modal-footer mt-3">
         <div class="form-group">
-          <button class="btn btn-success mr-2" [disabled]="!formIdioma.valid">Salvar</button>
+          <button class="btn btn-success mr-2" [disabled]="!form.valid">Salvar</button>
           <button class="btn btn-danger" (click)="closeModal()">Cancelar</button>
         </div>
       </div>

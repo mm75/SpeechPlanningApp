@@ -1,21 +1,21 @@
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cantico } from 'src/app/shared/models/cantico';
+import { Orador } from 'src/app/shared/models/orador';
 import { BaseService } from './base.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CanticoService extends BaseService<Cantico> {
+export class OradorService extends BaseService<Orador> {
 
   constructor(private httpClient: HttpClient, http: HttpClient) {
     super(http);
-    this.baseUrl = `${environment.baseUrl}/cantico`;
+    this.baseUrl = `${environment.baseUrl}/orador`;
   }
 
-  getBy(value: string): Observable<Cantico[]> {
-    return this.httpClient.get<Cantico[]>(`${this.baseUrl}/search/${value}`);
+  getBy(value: string): Observable<Orador[]> {
+    return this.httpClient.get<Orador[]>(`${this.baseUrl}/search/${value}`);
   }
 }

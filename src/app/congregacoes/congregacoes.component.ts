@@ -1,104 +1,44 @@
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { CongregacaoService } from './../core/services/congregacao.service';
 import { Congregacao } from './../shared/models/congregacao';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationDialogService } from '../shared/services/confirmation-dialog.service';
+import { BaseController } from '../core/services/base.controller';
 
 @Component({
   selector: 'app-congregacoes',
   templateUrl: './congregacoes.component.html',
   styleUrls: ['./congregacoes.component.scss'],
 })
-export class CongregacoesComponent implements OnInit {
-  public modalRef: BsModalRef;
-  public congregacoes: Congregacao[];
-  public selectedCongregacao: Congregacao;
-  public formCongregacao: FormGroup;
-  public returnedCongregacoes: Congregacao[];
-
+export class CongregacoesComponent
+  extends BaseController<Congregacao, new () => Congregacao>
+  implements OnInit {
   constructor(
-    private congregacoeservice: CongregacaoService,
-    private modalService: BsModalService,
     private formBuilder: FormBuilder,
-    private confirmationDialogService: ConfirmationDialogService
+    congregacoeservice: CongregacaoService,
+    modalService: BsModalService,
+    confirmationDialogService: ConfirmationDialogService
   ) {
+    super(
+      congregacoeservice,
+      Congregacao,
+      modalService,
+      confirmationDialogService
+    );
     this.createForm();
   }
 
   ngOnInit(): void {
-    this.loadCongregacoes();
+    this.loadEntities();
   }
 
-  private createForm(): void {
-    this.formCongregacao = this.formBuilder.group({
+  createForm(): void {
+    this.form = this.formBuilder.group({
       id: [null],
       nome: [null, Validators.required],
       local: [false],
       ativo: [true],
     });
-  }
-
-  openModal(template: TemplateRef<any>, congregacao?: Congregacao): void {
-    this.modalRef = this.modalService.show(template, {
-      ignoreBackdropClick: true,
-    });
-
-    congregacao = congregacao ?? new Congregacao();
-
-    this.selectedCongregacao = congregacao;
-    this.formCongregacao.patchValue(congregacao);
-  }
-
-  closeModal(): void {
-    this.createForm();
-    this.modalRef.hide();
-  }
-
-  pageChanged(event: PageChangedEvent): void {
-    const startItem = (event.page - 1) * event.itemsPerPage;
-    const endItem = event.page * event.itemsPerPage;
-
-    this.returnedCongregacoes = this.congregacoes.slice(startItem, endItem);
-  }
-
-  loadCongregacoes(): void {
-    this.congregacoeservice.getAll().subscribe(
-      (congregacoes: Congregacao[]) => {
-        this.congregacoes = congregacoes;
-        this.returnedCongregacoes = this.congregacoes.slice(0, 10);
-      },
-      (error: any) => {
-        console.error(error);
-      }
-    );
-  }
-
-  save(): void {
-    if (!this.formCongregacao.valid) {
-      return;
-    }
-
-    this.congregacoeservice
-      .save(this.formCongregacao.value)
-      .subscribe((data) => {
-        this.loadCongregacoes();
-        this.closeModal();
-      });
-  }
-
-  remove(congregacao: Congregacao): void {
-    this.confirmationDialogService.confirmThis(
-      'Deseja realmente remover o registro?',
-      () => {
-        this.congregacoeservice
-          .remove(congregacao)
-          .subscribe((data) => this.loadCongregacoes());
-      },
-      () => {
-        return false;
-      }
-    );
   }
 }
