@@ -1,9 +1,9 @@
-import { ProgramacoesComponent } from './programacoes/programacoes.component';
-import { OradoresComponent } from './oradores/oradores.component';
-import { IdiomasComponent } from './idiomas/idiomas.component';
-import { EsbocosComponent } from './esbocos/esbocos.component';
-import { CongregacoesComponent } from './congregacoes/congregacoes.component';
-import { CanticosComponent } from './canticos/canticos.component';
+import { ProgramacoesComponent } from './presentation/pages/programacoes/programacoes.component';
+import { OradoresComponent } from './presentation/pages/oradores/oradores.component';
+import { IdiomasComponent } from './presentation/pages/idiomas/idiomas.component';
+import { EsbocosComponent } from './presentation/pages/esbocos/esbocos.component';
+import { CongregacoesComponent } from './presentation/pages/congregacoes/congregacoes.component';
+import { CanticosComponent } from './presentation/pages/canticos/canticos.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
