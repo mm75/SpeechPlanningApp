@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:ghdist": "ng build --prod --output-path dist --base-href /SpeechPlanningApp/"
+    "deploy:ghdist": "ng build --prod --output-path docs --base-href /SpeechPlanningApp/"
   },
   "private": true,
   "dependencies": {
