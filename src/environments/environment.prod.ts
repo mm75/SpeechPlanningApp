@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://localhost:5001'
+  baseUrl: 'http://aspnetcore-dev.eba-k8rvr2m2.us-east-2.elasticbeanstalk.com'
 };
