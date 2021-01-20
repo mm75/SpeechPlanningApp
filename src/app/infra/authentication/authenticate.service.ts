@@ -10,17 +10,15 @@ export class AuthenticateService implements CanActivate {
     private router: Router,
     @Inject(DOCUMENT) private doc: Document
   ) {}
-  async canActivate(): Promise<boolean> {
-    const isAuthenticated = await this.auth.isAuthenticated$.subscribe(
-      (loggedIn) => {
-        if (!loggedIn) {
-          this.auth.loginWithRedirect();
-          return false;
-        }
-
-        return true;
+  canActivate(): boolean {
+    const isAuthenticated = this.auth.isAuthenticated$.subscribe((loggedIn) => {
+      if (!loggedIn) {
+        this.auth.loginWithRedirect();
+        return false;
       }
-    );
+
+      return true;
+    });
 
     return true;
   }
