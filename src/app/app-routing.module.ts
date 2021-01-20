@@ -6,18 +6,28 @@ import { CongregacoesComponent } from './presentation/pages/congregacoes/congreg
 import { CanticosComponent } from './presentation/pages/canticos/canticos.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {
+  AuthenticateService as Auth,
+  AuthenticateService,
+} from './infra/authentication/authenticate.service';
 
 const routes: Routes = [
-  { path: 'canticos', component: CanticosComponent },
-  { path: 'congregacoes', component: CongregacoesComponent },
-  { path: 'esbocos', component: EsbocosComponent },
-  { path: 'idiomas', component: IdiomasComponent },
-  { path: 'oradores', component: OradoresComponent },
-  { path: 'programacoes', component: ProgramacoesComponent },
+  {
+    path: '',
+    canActivate: [Auth],
+    children: [
+      { path: 'canticos', component: CanticosComponent },
+      { path: 'congregacoes', component: CongregacoesComponent },
+      { path: 'esbocos', component: EsbocosComponent },
+      { path: 'idiomas', component: IdiomasComponent },
+      { path: 'oradores', component: OradoresComponent },
+      { path: 'programacoes', component: ProgramacoesComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

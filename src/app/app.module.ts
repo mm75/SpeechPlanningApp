@@ -20,6 +20,8 @@ import { ConfirmationDialogComponent } from './presentation/shared/components/co
 import { ConfirmationDialogService } from './presentation/shared/services/confirmation-dialog.service';
 import { AutocompleteComponent } from './presentation/shared/components/autocomplete/autocomplete.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { AuthModule } from '@auth0/auth0-angular';
+import { AuthenticateService } from './infra/authentication/authenticate.service';
 
 @NgModule({
   declarations: [
@@ -45,8 +47,12 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     TypeaheadModule.forRoot(),
+    AuthModule.forRoot({
+      domain: 'mariomendonca.us.auth0.com',
+      clientId: 'qJDIgN5i4TkM9e5GIZBn6VdB9R8HccqX'
+    }),
   ],
-  providers: [ConfirmationDialogService],
+  providers: [AuthenticateService, ConfirmationDialogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
