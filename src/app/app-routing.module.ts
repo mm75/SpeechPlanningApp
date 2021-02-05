@@ -1,3 +1,4 @@
+import { HomeComponent } from './presentation/pages/home/home.component';
 import { ProgramacoesComponent } from './presentation/pages/programacoes/programacoes.component';
 import { OradoresComponent } from './presentation/pages/oradores/oradores.component';
 import { IdiomasComponent } from './presentation/pages/idiomas/idiomas.component';
@@ -6,16 +7,15 @@ import { CongregacoesComponent } from './presentation/pages/congregacoes/congreg
 import { CanticosComponent } from './presentation/pages/canticos/canticos.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {
-  AuthenticateService as Auth,
-  AuthenticateService,
-} from './infra/authentication/authenticate.service';
+import { AuthenticateService as Auth } from './infra/authentication/authenticate.service';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: '',
     canActivate: [Auth],
     children: [
+      { path: 'home', component: HomeComponent },
       { path: 'canticos', component: CanticosComponent },
       { path: 'congregacoes', component: CongregacoesComponent },
       { path: 'esbocos', component: EsbocosComponent },

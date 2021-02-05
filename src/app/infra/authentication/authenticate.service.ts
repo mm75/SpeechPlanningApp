@@ -6,7 +6,7 @@ import { AuthService } from '@auth0/auth0-angular';
 @Injectable()
 export class AuthenticateService implements CanActivate {
   constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router,
     @Inject(DOCUMENT) private doc: Document
   ) {}

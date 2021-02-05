@@ -1,4 +1,9 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://aspnetcore-dev.eba-k8rvr2m2.us-east-2.elasticbeanstalk.com'
+  baseUrl: 'https://localhost:5001',
+  oauth0: {
+    domain: 'mariomendonca.us.auth0.com',
+    clientId: 'qJDIgN5i4TkM9e5GIZBn6VdB9R8HccqX',
+    audience: 'https://localhost:5001'
+  },
 };

@@ -21,6 +21,7 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
+              "src/assets/logo-planejamento.png",
               "src/assets"
             ],
             "styles": [
@@ -87,6 +88,7 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
+              "src/assets/logo-planejamento.png",
               "src/assets"
             ],
             "styles": [
