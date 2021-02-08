@@ -27,23 +27,11 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.getToken();
-
-    if (this.userToken && this.auth.auth.isAuthenticated$) {
-      const tokenReq = req.clone({
-        setHeaders: { Authorization: `Bearer ${this.userToken}` },
-      });
-
-      return next.handle(tokenReq);
-    }
-
     return this.auth.auth.getAccessTokenSilently().pipe(
       mergeMap((token) => {
         const tokenReq = req.clone({
           setHeaders: { Authorization: `Bearer ${token}` },
         });
-
-        this.storeToken(token);
 
         return next.handle(tokenReq);
       }),
