@@ -29,29 +29,27 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.getToken();
 
-    try {
-      if (this.userToken) {
+    if (this.userToken && this.auth.auth.isAuthenticated$) {
+      const tokenReq = req.clone({
+        setHeaders: { Authorization: `Bearer ${this.userToken}` },
+      });
+
+      return next.handle(tokenReq);
+    }
+
+    return this.auth.auth.getAccessTokenSilently().pipe(
+      mergeMap((token) => {
         const tokenReq = req.clone({
-          setHeaders: { Authorization: `Bearer ${this.userToken}` },
+          setHeaders: { Authorization: `Bearer ${token}` },
         });
 
+        this.storeToken(token);
+
         return next.handle(tokenReq);
-      }
-    } catch (error) {
-      return this.auth.auth.getAccessTokenSilently().pipe(
-        mergeMap((token) => {
-          const tokenReq = req.clone({
-            setHeaders: { Authorization: `Bearer ${token}` },
-          });
+      }),
 
-          this.storeToken(token);
-
-          return next.handle(tokenReq);
-        }),
-
-        catchError((err) => throwError(err))
-      );
-    }
+      catchError((err) => throwError(err))
+    );
   }
 
   storeToken(token: string): void {
